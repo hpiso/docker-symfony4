@@ -1,0 +1,16 @@
+version: '2'
+services:
+    web:
+        image: nginx:latest
+        container_name: web_server
+        ports:
+            - "80:80"
+        volumes:
+            - ./www:/app/www:cached
+            - ./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf
+        links:
+            - php
+    php:
+        image: php:7-fpm
+        volumes:
+            - ./www:/app/www:cached
